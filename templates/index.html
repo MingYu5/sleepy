@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ user }} Alive?</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="https://s.040905.xyz/d/v/business-spirit-unit.gif?…gn=uDy2k6zQMaZr8CnNBem03KTPdcQGX-JVOIRcEBcVOhk=:0" type="image/x-icon">
 </head>
 
 <!-- url_for('static', filename='') -->
@@ -20,6 +20,10 @@
         <a>{{ user }}'s Status:<br><a id="status" style="font-size: 1.2em;">{{ status_name }}</a></a>
         <br>
         <a id="additional-info" style="font-size: 1em;">{{ status_desc }}</a>
+        <a>{{ user }}'s PC_Status:<br>
+        <br><a id="status" style="font-size: 1.2em;">{{ pc_status_name }}</a>
+        <br>
+        <a id="additional-info" style="font-size: 1em;">{{ pc_status_desc }}</a>
 
         <div style="height: 10px;"></div>
         {{ more_text | safe }}

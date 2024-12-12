@@ -39,6 +39,10 @@ def index():
     ot = d.data['other']
     try:
         stat = d.data['status_list'][d.data['status']]
+        pc_stat = d.data['status_list'][d.data['pc_status']]
+        if(d.data['pc_status'] == 0):
+            pc_app_name = d.data['pc_app_name']
+            pc_stat['name'] = pc_app_name
         if(d.data['status'] == 0):
             app_name = d.data['app_name']
             stat['name'] = app_name
@@ -55,6 +59,8 @@ def index():
         repo=ot['repo'],
         status_name=stat['name'],
         status_desc=stat['desc'],
+        pc_status_name=pc_stat['name'],
+        pc_status_desc=pc_stat['pc_desc'],
         status_color=stat['color'],
         more_text=ot['more_text']
     )
