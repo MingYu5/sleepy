@@ -6,7 +6,7 @@
     "任务切换程序"
 ]
 服务器地址 = "https://sl.040905.xyz/set"
-secret = "Mysecret"
+secret = "Mysecert"
 
 import requests
 import time
