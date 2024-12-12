@@ -31,15 +31,14 @@ def showip(req, msg):
         ip2 = None
         u.infon(f'- Request: {ip1} : {msg}')
 
-
 @app.route('/')
 def index():
     d.load()
     showip(request, '/')
     ot = d.data['other']
     try:
-        stat = d.data['status_list'][d.data['status']]
-        pc_stat = d.data['status_list'][d.data['pc_status']]
+        stat = d.data['status_list'][d.data['status']].copy()
+        pc_stat = d.data['status_list'][d.data['pc_status']].copy()
         if(d.data['pc_status'] == 0):
             pc_app_name = d.data['pc_app_name']
             pc_stat['name'] = pc_app_name
@@ -115,21 +114,26 @@ def set_normal():
     app_name = escape(request.args.get("app_name"))
     if not status.isdigit():
         status = None
+    if app_name == "" or app_name == "None":
+        app_name = None
     pc_status = escape(request.args.get("pc_status"))
     pc_app_name = escape(request.args.get("pc_app_name"))
     if not pc_status.isdigit():
         pc_status = None
+    if pc_app_name == "" or pc_app_name == "None":
+        pc_app_name = None
     secret = escape(request.args.get("secret"))
     u.info(f'status: {status}, name: {app_name}, secret: "{secret}", pc_status: {pc_status}, pc_name: {pc_app_name}')
+    print(f'status: {status}, name: {app_name}, secret: "{secret}", pc_status: {pc_status}, pc_name: {pc_app_name}')
     secret_real = d.dget('secret')
     if secret == secret_real:
         if status is not None:
             d.dset('status', int(status))
-        if app_name:
+        if app_name is not None:
             d.dset('app_name', app_name)
         if pc_status is not None:
             d.dset('pc_status', int(pc_status))
-        if pc_app_name:
+        if pc_app_name is not None:
             d.dset('pc_app_name', pc_app_name)
         u.info('set success')
         ret = {
