@@ -20,8 +20,10 @@
         <a>{{ user }}'s Status:<br><a id="status" style="font-size: 1.2em;">{{ status_name }}</a></a>
         <br>
         <a id="additional-info" style="font-size: 1em;">{{ status_desc }}</a>
+        <br>
+        <br>
         <a>{{ user }}'s PC_Status:<br>
-        <br><a id="status" style="font-size: 1.2em;">{{ pc_status_name }}</a>
+        <a id="pc_status" style="font-size: 1.2em;">{{ pc_status_name }}</a>
         <br>
         <a id="additional-info" style="font-size: 1em;">{{ pc_status_desc }}</a>
 
@@ -44,6 +46,8 @@
     <script>
         const statusElement = document.getElementById('status');
         statusElement.classList.add('{{ status_color }}');
+        const pc_statusElement = document.getElementById('pc_status');
+        pc_statusElement.classList.add('{{ pc_status_color }}');
     </script>
 </body>
 

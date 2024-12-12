@@ -62,6 +62,7 @@ def index():
         pc_status_name=pc_stat['name'],
         pc_status_desc=pc_stat['pc_desc'],
         status_color=stat['color'],
+        pc_status_color=pc_stat['pc_color'],
         more_text=ot['more_text']
     )
 
@@ -112,25 +113,32 @@ def set_normal():
     showip(request, '/set')
     status = escape(request.args.get("status"))
     app_name = escape(request.args.get("app_name"))
-    try:
-        status = int(status)
-    except:
-        return reterr(
-            code='bad request',
-            message="argument 'status' must be a number"
-        )
+    if not status.isdigit():
+        status = None
+    pc_status = escape(request.args.get("pc_status"))
+    pc_app_name = escape(request.args.get("pc_app_name"))
+    if not pc_status.isdigit():
+        pc_status = None
     secret = escape(request.args.get("secret"))
-    u.info(f'status: {status}, name: {app_name}, secret: "{secret}"')
+    u.info(f'status: {status}, name: {app_name}, secret: "{secret}", pc_status: {pc_status}, pc_name: {pc_app_name}')
     secret_real = d.dget('secret')
     if secret == secret_real:
-        d.dset('status', status)
-        d.dset('app_name', app_name)
+        if status is not None:
+            d.dset('status', int(status))
+        if app_name:
+            d.dset('app_name', app_name)
+        if pc_status is not None:
+            d.dset('pc_status', int(pc_status))
+        if pc_app_name:
+            d.dset('pc_app_name', pc_app_name)
         u.info('set success')
         ret = {
             'success': True,
             'code': 'OK',
             'set_to': status,
-            'app_name':app_name
+            'app_name':app_name,
+            'pc_set_to': pc_status,
+            'pc_app_name': pc_app_name
         }
         return u.format_dict(ret)
     else:
